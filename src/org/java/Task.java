@@ -2,6 +2,7 @@ package src.org.java;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 
 /**
  * The class Task
@@ -157,5 +158,13 @@ public class Task implements Comparable<Object>{
     }
 
 
+}
 
+class ComparatorDateExp implements Comparator<Task> {
+
+    @Override
+    public int compare(Task o1, Task o2) {
+        return o2.getDateExpiration().compareTo(o1.getDateExpiration());
+    }
+    
 }
