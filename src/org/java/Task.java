@@ -9,7 +9,7 @@ import java.time.LocalTime;
  * This class is designed for catch the task of the
  * users.
  */
-public class Task {
+public class Task implements Comparable<Object>{
     /**
      * The task have this characteristics.
      */
@@ -134,6 +134,26 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    /**
+     * Comparation vanilla, by the name
+     */
+    @Override
+    public int compareTo(Object o) {
+        Task other = (Task) o;
+        int firstComparison = this.title.compareTo(other.title);
+        if(firstComparison == 0) {
+            int secondComparison = other.dateExpiration.compareTo(this.dateExpiration);
+            if(secondComparison == 0) {
+                int thirdComparison = other.hourExpiration.compareTo(this.hourExpiration);
+                if(thirdComparison == 0) {
+                    return (this.taskRef > other.taskRef ? 1 : -1);
+                }
+            }
+        }
+
+        return firstComparison;
     }
 
 

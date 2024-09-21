@@ -28,4 +28,32 @@ public class TaskList {
         count++;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public ArrayList<Task> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Task> list) {
+        this.list = list;
+    }
+
+    public void addTask(Task task){
+        this.list.add(task);
+    }
+
 }
