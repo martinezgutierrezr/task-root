@@ -18,6 +18,7 @@ public class Task {
     private LocalDate dateExpiration;
     private LocalTime hourExpiration;
     private int taskRef;
+    private boolean completed;
 
     /**
      * Default builder
@@ -76,11 +77,63 @@ public class Task {
      * @param dateExpiration    The expiration date of the task.
      * @param hourExpiration    The expiraiton time of the task.
      */
-    public Task(String title, String description, LocalDate dateExpiration, LocalTime hourExpiration){
+    public Task(String title, String description, LocalDate dateExpiration, LocalTime hourExpiration) {
         this.title = title;
         this.description = description;
         this.dateExpiration = dateExpiration;
         this.hourExpiration = hourExpiration;
+        this.completed = false;
     }
+
+    
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+   
+    public LocalDate getDateExpiration() {
+        return this.dateExpiration;
+    }
+
+    public void setDateExpiration(LocalDate dateExpiration) {
+        this.dateExpiration = dateExpiration;
+    }
+   
+    public LocalTime getHourExpiration() {
+        return this.hourExpiration;
+    }
+
+    public void setHourExpiration(LocalTime hourExpiration) {
+        this.hourExpiration = hourExpiration;
+    }
+ 
+    public int getTaskRef() {
+        return this.taskRef;
+    }
+
+    public void setTaskRef(int taskRef) {
+        this.taskRef = taskRef;
+    }
+
+    public boolean isCompleted() {
+        return this.completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+
 
 }
