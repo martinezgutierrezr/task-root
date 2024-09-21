@@ -83,6 +83,8 @@ public class Task {
         this.dateExpiration = dateExpiration;
         this.hourExpiration = hourExpiration;
         this.completed = false;
+        this.taskRef = taskRef;
+        taskRef++;
     }
 
     
