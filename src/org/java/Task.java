@@ -18,7 +18,9 @@ public class Task implements Comparable<Object>{
     private String description;
     private LocalDate dateExpiration;
     private LocalTime hourExpiration;
-    private int taskRef;
+    private LocalDate dateCreation;
+    private LocalTime hourCreation;
+    private int id;
     private boolean completed;
 
     /**
@@ -84,8 +86,10 @@ public class Task implements Comparable<Object>{
         this.dateExpiration = dateExpiration;
         this.hourExpiration = hourExpiration;
         this.completed = false;
-        this.taskRef = taskRef;
-        taskRef++;
+        this.dateCreation = LocalDate.now();
+        this.hourCreation = LocalTime.now();
+        this.id = id;
+        id++;
     }
 
     
@@ -122,11 +126,11 @@ public class Task implements Comparable<Object>{
     }
  
     public int getTaskRef() {
-        return this.taskRef;
+        return this.id;
     }
 
     public void setTaskRef(int taskRef) {
-        this.taskRef = taskRef;
+        this.id = taskRef;
     }
 
     public boolean isCompleted() {
@@ -135,6 +139,14 @@ public class Task implements Comparable<Object>{
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public LocalDate getDateCreation() {
+        return this.dateCreation;
+    }
+
+    public LocalTime getHourCreation() {
+        return this.hourCreation;
     }
 
     /**
@@ -149,7 +161,7 @@ public class Task implements Comparable<Object>{
             if(secondComparison == 0) {
                 int thirdComparison = other.hourExpiration.compareTo(this.hourExpiration);
                 if(thirdComparison == 0) {
-                    return (this.taskRef > other.taskRef ? 1 : -1);
+                    return (this.id > other.id ? 1 : -1);
                 }
             }
         }
@@ -160,11 +172,33 @@ public class Task implements Comparable<Object>{
 
 }
 
+/**
+ * Compare by the expiration date
+ */
 class ComparatorDateExp implements Comparator<Task> {
 
     @Override
     public int compare(Task o1, Task o2) {
         return o2.getDateExpiration().compareTo(o1.getDateExpiration());
     }
-    
+}
+
+/**
+ * Compare by the expiration time
+ */
+class ComparatorTimeExp implements Comparator<Task> {
+    @Override
+    public int compare(Task o1, Task o2){
+        return o2.getHourExpiration().compareTo(o1.getHourExpiration());
+    }
+}
+
+/**
+ * Compare by creation time.
+ */
+class ComparatorTaskRef implements Comparator<Task> {
+    @Override
+    public int compare(Task o1, Task o2) {
+        return 1;
+    }
 }
