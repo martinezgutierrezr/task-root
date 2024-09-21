@@ -154,51 +154,33 @@ public class Task implements Comparable<Object>{
      */
     @Override
     public int compareTo(Object o) {
+        Comparator comparator = new ComparatorTaskRef();
         Task other = (Task) o;
-        int firstComparison = this.title.compareTo(other.title);
-        if(firstComparison == 0) {
-            int secondComparison = other.dateExpiration.compareTo(this.dateExpiration);
-            if(secondComparison == 0) {
-                int thirdComparison = other.hourExpiration.compareTo(this.hourExpiration);
-                if(thirdComparison == 0) {
-                    return (this.id > other.id ? 1 : -1);
-                }
-            }
-        }
-
-        return firstComparison;
+        return comparator.compare(this, other);
     }
 
 
 }
 
 /**
- * Compare by the expiration date
+ * Compare by the expiration date or expiration time
  */
 class ComparatorDateExp implements Comparator<Task> {
 
     @Override
     public int compare(Task o1, Task o2) {
-        return o2.getDateExpiration().compareTo(o1.getDateExpiration());
+        int result = o2.getDateExpiration().compareTo(o1.getDateExpiration());
+        return (result != 0 ? result : o2.getHourExpiration().compareTo(o1.getHourExpiration()));
     }
 }
 
 /**
- * Compare by the expiration time
- */
-class ComparatorTimeExp implements Comparator<Task> {
-    @Override
-    public int compare(Task o1, Task o2){
-        return o2.getHourExpiration().compareTo(o1.getHourExpiration());
-    }
-}
-
-/**
- * Compare by creation time.
+ * Compare by creation date or time.
  */
 class ComparatorTaskRef implements Comparator<Task> {
     @Override
     public int compare(Task o1, Task o2) {
-        return 1;
+        int result = o2.getDateCreation().compareTo(o1.getDateCreation()); 
+        return (result != 0 ? result : o2.getHourCreation().compareTo(o1.getHourCreation()));
     }
 }
