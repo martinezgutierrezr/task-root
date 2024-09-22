@@ -22,12 +22,19 @@ public class Task implements Comparable<Object>{
     private LocalTime hourCreation;
     private int id;
     private boolean completed;
+    /**
+     * The taskList
+     * 
+     * The list where the task is. It must not be in anyone. If
+     * is it the case, the default is "Tasks"
+     */
+    private TaskList taskList; 
 
     /**
      * Default builder
      */
     public Task() {
-        this("Unknown title", "Unknown description", null, null);
+        this("Unknown title", "Unknown description", null, null, TaskManager.getDefaultTaskList());
     }
 
     /**
@@ -35,7 +42,7 @@ public class Task implements Comparable<Object>{
      * @param title The title of the task.
      */
     public Task(String title){
-        this(title, "Unknown description", null, null);
+        this(title, "Unknown description", null, null, TaskManager.getDefaultTaskList());
     }
 
     /**
@@ -44,7 +51,7 @@ public class Task implements Comparable<Object>{
      * @param description   The description of the task.
      */
     public Task(String title, String description) {
-        this(title, description, null, null);
+        this(title, description, null, null, TaskManager.getDefaultTaskList());
     }
 
     /**
@@ -57,7 +64,7 @@ public class Task implements Comparable<Object>{
      * @param dateExpiration The expiration date of the task.
      */
     public Task(String title, String description, LocalDate dateExpiration){
-        this(title, description, dateExpiration, LocalTime.of(23, 59));    
+        this(title, description, dateExpiration, LocalTime.of(23, 59), TaskManager.getDefaultTaskList());    
     }
 
      /**
@@ -70,7 +77,7 @@ public class Task implements Comparable<Object>{
      * @param hourExpiration The expiration time of the task.
      */
     public Task(String title, String description, LocalTime hourExpiration){
-        this(title, description, LocalDate.now(), hourExpiration);
+        this(title, description, LocalDate.now(), hourExpiration, TaskManager.getDefaultTaskList());
     }
 
     /**
@@ -81,6 +88,17 @@ public class Task implements Comparable<Object>{
      * @param hourExpiration    The expiraiton time of the task.
      */
     public Task(String title, String description, LocalDate dateExpiration, LocalTime hourExpiration) {
+        this(title, description, dateExpiration, hourExpiration, TaskManager.getDefaultTaskList());
+    }
+
+     /**
+     * Builder including dateExpiration and hourExpirationLocalTime.
+     * @param title The title of the task.
+     * @param description   The description of the task.
+     * @param dateExpiration    The expiration date of the task.
+     * @param hourExpiration    The expiraiton time of the task.
+     */
+    public Task(String title, String description, LocalDate dateExpiration, LocalTime hourExpiration, TaskList taskList) {
         this.title = title;
         this.description = description;
         this.dateExpiration = dateExpiration;
@@ -88,7 +106,9 @@ public class Task implements Comparable<Object>{
         this.completed = false;
         this.dateCreation = LocalDate.now();
         this.hourCreation = LocalTime.now();
+        this.taskList = taskList;
         this.id = id;
+        
         id++;
     }
 
