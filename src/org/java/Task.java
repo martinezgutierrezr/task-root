@@ -22,6 +22,7 @@ public class Task implements Comparable<Object>{
     private LocalTime hourCreation;
     private int id;
     private boolean completed;
+    private static int count = 0;
     /**
      * The taskList
      * 
@@ -107,9 +108,10 @@ public class Task implements Comparable<Object>{
         this.dateCreation = LocalDate.now();
         this.hourCreation = LocalTime.now();
         this.taskList = taskList;
-        this.id = id;
+        this.id = count;
         
-        id++;
+        taskList.addTask(this); // add the task to the taskList (make good the relationship)
+        count++;
     }
 
     
@@ -169,6 +171,18 @@ public class Task implements Comparable<Object>{
         return this.hourCreation;
     }
 
+    public TaskList geTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(TaskList taskList) {
+        if(!this.taskList.equals(taskList)) {
+            
+            this.taskList = taskList;
+            
+        } 
+    }
+
     /**
      * Comparation vanilla, by the creation date or time
      */
@@ -179,28 +193,20 @@ public class Task implements Comparable<Object>{
         return comparator.compare(this, other);
     }
 
-
-}
-
-/**
- * Compare by the expiration date or expiration time
- */
-class ComparatorDateExp implements Comparator<Task> {
-
     @Override
-    public int compare(Task o1, Task o2) {
-        int result = o2.getDateExpiration().compareTo(o1.getDateExpiration());
-        return (result != 0 ? result : o2.getHourExpiration().compareTo(o1.getHourExpiration()));
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } 
+        if(!(o instanceof TaskList)){
+            return false;
+        }
+        Task other = (Task) o;
+        return this.id == other.id;
     }
+
+
 }
 
-/**
- * Compare by creation date or time.
- */
-class ComparatorTaskRef implements Comparator<Task> {
-    @Override
-    public int compare(Task o1, Task o2) {
-        int result = o2.getDateCreation().compareTo(o1.getDateCreation()); 
-        return (result != 0 ? result : o2.getHourCreation().compareTo(o1.getHourCreation()));
-    }
-}
+
+

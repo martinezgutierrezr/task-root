@@ -14,6 +14,8 @@ public class TaskList {
     private String name;
     private Color color;
     private ArrayList<Task> list;
+    private int id;
+    private static int count = 0;
 
     public TaskList() {
         this("List", Color.BLUE);
@@ -27,10 +29,12 @@ public class TaskList {
         this.name = name;
         this.color = color;
         this.list = new ArrayList<>();
+        this.id = count;
+        count++;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -38,7 +42,7 @@ public class TaskList {
     }
 
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     public void setColor(Color color) {
@@ -46,7 +50,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> getList() {
-        return list;
+        return this.list;
     }
 
     public void setList(ArrayList<Task> list) {
@@ -58,7 +62,14 @@ public class TaskList {
         for(Task task : tasks){
             this.list.add(task);
         }
-        Collections.sort(this.list);    // When all the task where added, order it.
+        Collections.sort(this.list);    // When all the task where added, reorder it.
+    }
+
+    public void removeTask(Task... tasks) {
+        for(Task task : tasks) {
+            this.list.remove(task);
+        }
+        Collections.sort(this.list);    // When all the task where removed, reorder it.
     }
 
     /**
@@ -71,6 +82,17 @@ public class TaskList {
         Collections.sort(taskList.list, comparator);
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;  
+        }
+        if (!(obj instanceof TaskList)) {
+            return false;  
+        }
+        TaskList other = (TaskList) obj;  
+        return this.id == other.id;  
+    }
     
 
     
