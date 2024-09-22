@@ -154,7 +154,7 @@ public class Task implements Comparable<Object>{
      */
     @Override
     public int compareTo(Object o) {
-        Comparator comparator = new ComparatorTaskRef();
+        Comparator<Task> comparator = new ComparatorTaskRef();
         Task other = (Task) o;
         return comparator.compare(this, other);
     }
