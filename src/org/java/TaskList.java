@@ -1,5 +1,8 @@
 package src.org.java;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -11,7 +14,6 @@ public class TaskList {
     private String name;
     private Color color;
     private ArrayList<Task> list;
-    private int count = 0;
 
     public TaskList() {
         this("List", Color.BLUE);
@@ -25,7 +27,6 @@ public class TaskList {
         this.name = name;
         this.color = color;
         this.list = new ArrayList<>();
-        count++;
     }
 
     public String getName() {
@@ -50,10 +51,26 @@ public class TaskList {
 
     public void setList(ArrayList<Task> list) {
         this.list = list;
+        Collections.sort(this.list);
     }
 
-    public void addTask(Task task){
-        this.list.add(task);
+    public void addTask(Task... tasks){
+        for(Task task : tasks){
+            this.list.add(task);
+        }
+        Collections.sort(this.list);    // When all the task where added, order it.
     }
+
+    /**
+     * Method orderTaskList
+     * 
+     * This method is used for order the list in a determinated
+     * order.
+     */
+    public static void orderTaskList(TaskList taskList, Comparator<Task> comparator) {
+        Collections.sort(taskList.list, comparator);
+    }
+
+    
 
 }

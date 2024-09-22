@@ -150,7 +150,7 @@ public class Task implements Comparable<Object>{
     }
 
     /**
-     * Comparation vanilla, by the name
+     * Comparation vanilla, by the creation date or time
      */
     @Override
     public int compareTo(Object o) {
